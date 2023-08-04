@@ -21,10 +21,8 @@ public class Customer {
     private String email;
     private String nik;
     private String gender;
-    private String dob;
-    private String pob;
     private String password;
-    private boolean isActive;
+    private boolean isActive = true;
     private LocalDateTime createdAt;
     private LocalDateTime updateAt;
 
