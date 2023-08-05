@@ -35,7 +35,8 @@ public class CustomerServiceImpl implements CustomerService {
                 return response;
             }
             saveNewCustomer(request);
-            response.setResponseCode(serviceCode + HttpStatus.UNPROCESSABLE_ENTITY);
+            response.setHttpCode(HttpStatus.OK.value());
+            response.setResponseCode(serviceCode + HttpStatus.OK.value());
             response.setResponseStatus("Successfully");
             response.setResponseMessage("customer saved " + request.getMobileNo());
             return response;

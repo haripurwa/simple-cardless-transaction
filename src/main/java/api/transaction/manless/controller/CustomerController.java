@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @Slf4j
 @RequestMapping("/api/internal")
@@ -22,7 +24,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping(value = "/create-customer", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> create(@RequestBody NewCustomerRequest request) {
+    public ResponseEntity<?> create(@Valid @RequestBody NewCustomerRequest request) {
         MsResponse response = customerService.createCs(request);
         return new ResponseEntity<>(response, HttpStatus.resolve(response.getHttpCode()));
     }
