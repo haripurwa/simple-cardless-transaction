@@ -26,12 +26,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public MsResponse createCs(NewCustomerRequest request) {
         try {
-            Optional<Customer> byMobileNo = customerRepo.findByMobileNo(request.getMobileNo());
-            if (byMobileNo.isPresent()) {
+            Optional<Customer> byNikAndAccountNo = customerRepo.findByNikAndAccountNo(request.getNik(),request.getAccountNo());
+            if (byNikAndAccountNo.isPresent()) {
                 response.setHttpCode(HttpStatus.UNPROCESSABLE_ENTITY.value());
                 response.setResponseCode(serviceCode + HttpStatus.UNPROCESSABLE_ENTITY.value());
                 response.setResponseStatus("Gagal");
-                response.setResponseMessage("mobileNo already exist");
+                response.setResponseMessage("account already exist");
                 return response;
             }
             saveNewCustomer(request);
@@ -51,6 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setName(request.getName());
         customer.setMobileNo(request.getMobileNo());
         customer.setNik(request.getNik());
+        customer.setAccountNo(request.getAccountNo());
         customer.setEmail(request.getEmail());
         customer.setGender(request.getGender());
         customer.setPassword(request.getPassword());

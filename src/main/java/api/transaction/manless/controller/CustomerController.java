@@ -23,8 +23,8 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @PostMapping(value = "/create-customer", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> create(@Valid @RequestBody NewCustomerRequest request) {
+    @PostMapping(value = "/register-customer", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> register(@Valid @RequestBody NewCustomerRequest request) {
         MsResponse response = customerService.createCs(request);
         return new ResponseEntity<>(response, HttpStatus.resolve(response.getHttpCode()));
     }

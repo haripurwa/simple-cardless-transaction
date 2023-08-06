@@ -13,4 +13,5 @@ import java.util.UUID;
 public interface CustomerRepo extends JpaRepository<Customer, UUID> {
 
     Optional<Customer> findByMobileNo(@Param("mobileNo") String mobileNo);
+    Optional<Customer> findByNikAndAccountNo(@Param("nik") String nik,@Param("accountNo") String accountNo);
 }
