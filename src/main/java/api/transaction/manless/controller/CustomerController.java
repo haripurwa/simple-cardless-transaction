@@ -1,5 +1,6 @@
 package api.transaction.manless.controller;
 
+import api.transaction.manless.dto.InquiryRequest;
 import api.transaction.manless.dto.NewCustomerRequest;
 import api.transaction.manless.dto.MsResponse;
 import api.transaction.manless.service.CustomerService;
@@ -28,5 +29,18 @@ public class CustomerController {
         MsResponse response = customerService.createCs(request);
         return new ResponseEntity<>(response, HttpStatus.resolve(response.getHttpCode()));
     }
+
+    @PostMapping(value = "/inquiry-customer", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> inquiry(@Valid @RequestBody InquiryRequest request) {
+        MsResponse response = customerService.inquiry(request);
+        return new ResponseEntity<>(response, HttpStatus.resolve(response.getHttpCode()));
+    }
+
+    @PostMapping(value = "/sin/balance", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> balance(@Valid @RequestBody InquiryRequest request) {
+        MsResponse response = customerService.inquiry(request);
+        return new ResponseEntity<>(response, HttpStatus.resolve(response.getHttpCode()));
+    }
+
 
 }
