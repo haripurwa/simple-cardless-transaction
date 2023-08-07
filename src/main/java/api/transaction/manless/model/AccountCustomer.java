@@ -3,6 +3,7 @@ package api.transaction.manless.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,8 +16,8 @@ import java.util.UUID;
 @Table(name = "account_customer")
 public class AccountCustomer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    @Type(type = ("uuid-char"))
+    private UUID id;
     private String accountNo;
     private  String saldo;
     private LocalDateTime createdAt;

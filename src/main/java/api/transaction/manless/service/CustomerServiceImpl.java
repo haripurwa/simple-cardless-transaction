@@ -92,7 +92,7 @@ public class CustomerServiceImpl implements CustomerService {
             if (balanceResponse.getResponseCode().equals("200")) {
                 AccountCustomer accountCustomer = new AccountCustomer();
                 accountCustomer.setSaldo(balanceResponse.getResponseMessage());
-                accountCustomerRepo.save(accountCustomerRepo);
+                accountCustomerRepo.save(accountCustomer);
                 log.info(request.getAccountNo() + " - balance");
             }
             response.setHttpCode(HttpStatus.OK.value());
@@ -119,7 +119,7 @@ public class CustomerServiceImpl implements CustomerService {
         //set account customer
         AccountCustomer accountCustomer = new AccountCustomer();
         accountCustomer.setAccountNo(request.getAccountNo());
-        accountCustomerRepo.save(accountCustomerRepo);
+        accountCustomerRepo.save(accountCustomer);
         log.info(request.getAccountNo() + " - Saved");
 
     }

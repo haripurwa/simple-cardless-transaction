@@ -3,6 +3,7 @@ package api.transaction.manless.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,17 +13,19 @@ import java.util.UUID;
 @Setter
 @Getter
 @NoArgsConstructor
-@Table(name = "account_customer")
-public class Param {
+@Table(name = "data_param")
+public class DataParam {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    @Type(type = ("uuid-char"))
+    private UUID id;
     private String transaction;
-    private  String limit;
+    private String limitTransaction;
     private LocalDateTime createdAt;
 
     @PrePersist
     public void setModelBeforeInsert() {
+        this.id = UUID.randomUUID();
         this.createdAt = LocalDateTime.now();
     }
+
 }
