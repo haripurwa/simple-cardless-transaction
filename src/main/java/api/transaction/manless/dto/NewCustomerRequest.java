@@ -27,6 +27,4 @@ public class NewCustomerRequest {
     private String accountNo;
     @NotBlank(message = Wording.Msg.STR_CANNOT_NULL_EMPTY)
     private String gender;
-    @NotBlank(message = Wording.Msg.STR_CANNOT_NULL_EMPTY)
-    private String password;
 }

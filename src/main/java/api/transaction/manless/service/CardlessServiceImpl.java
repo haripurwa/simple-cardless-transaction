@@ -1,6 +1,8 @@
 package api.transaction.manless.service;
 
 import api.transaction.manless.dto.CardlessRequest;
+import api.transaction.manless.dto.ListTransactionRequest;
+import api.transaction.manless.dto.ListTransactionResponse;
 import api.transaction.manless.dto.MsResponse;
 import api.transaction.manless.message.TransactionMessagePublisher;
 import api.transaction.manless.model.AccountCustomer;
@@ -13,6 +15,8 @@ import api.transaction.manless.repository.CustomerRepo;
 import api.transaction.manless.repository.DataParamRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,11 +37,11 @@ public class CardlessServiceImpl implements CardlessService {
 
     private final TransactionMessagePublisher messagePublisher;
 
-    public CardlessServiceImpl(CustomerRepo customerRepo, CardlessTransRepo cardlessTransRepo, MsResponse response, ObjectMapper objectMapper, TransactionMessagePublisher messagePublisher, AccountCustomerRepo accountCustomerRepo, DataParamRepo dataParamRepo) {
+    public CardlessServiceImpl(ObjectMapper objectMapper, CustomerRepo customerRepo, CardlessTransRepo cardlessTransRepo, MsResponse response, TransactionMessagePublisher messagePublisher, AccountCustomerRepo accountCustomerRepo, DataParamRepo dataParamRepo) {
+        this.objectMapper = objectMapper;
         this.customerRepo = customerRepo;
         this.cardlessTransRepo = cardlessTransRepo;
         this.response = response;
-        this.objectMapper = objectMapper;
         this.messagePublisher = messagePublisher;
         this.accountCustomerRepo = accountCustomerRepo;
         this.dataParamRepo = dataParamRepo;
@@ -47,9 +51,9 @@ public class CardlessServiceImpl implements CardlessService {
     @Override
     public MsResponse create(CardlessRequest request) {
         try {
-            Optional<Customer> byMobileNo = customerRepo.findByNikAndAccountNo(request.getNik(), request.getAccountNo());
+            Optional<Customer> byNikAndAccountNo = customerRepo.findByNikAndAccountNo(request.getNik(), request.getAccountNo());
             //cek account valid
-            if (byMobileNo.isEmpty()) {
+            if (byNikAndAccountNo.isEmpty()) {
                 response.setHttpCode(HttpStatus.UNPROCESSABLE_ENTITY.value());
                 response.setResponseCode(serviceCode + HttpStatus.UNPROCESSABLE_ENTITY.value());
                 response.setResponseStatus("Gagal");
@@ -61,7 +65,7 @@ public class CardlessServiceImpl implements CardlessService {
             double limitTransaction = Double.parseDouble(cardless.get().getLimitTransaction());
             double debetAmount = Double.parseDouble(request.getDebetAmount());
 
-            if (limitTransaction >= debetAmount) {
+            if (limitTransaction <= debetAmount) {
                 response.setHttpCode(HttpStatus.UNPROCESSABLE_ENTITY.value());
                 response.setResponseCode(serviceCode + HttpStatus.UNPROCESSABLE_ENTITY.value());
                 response.setResponseStatus("Gagal");
@@ -81,7 +85,7 @@ public class CardlessServiceImpl implements CardlessService {
             response.setHttpCode(HttpStatus.OK.value());
             response.setResponseCode(serviceCode + HttpStatus.OK.value());
             response.setResponseStatus("Successfully");
-            response.setResponseMessage(request.getAccountNo() + " balance");
+            response.setResponseMessage("transaction success");
             return response;
         } catch (Exception er) {
             return null;
@@ -89,7 +93,8 @@ public class CardlessServiceImpl implements CardlessService {
     }
 
     @Override
-    public MsResponse listTransaction(CardlessRequest request) {
+    public MsResponse listTransaction(ListTransactionRequest request) {
+        Page<ListTransactionResponse> listTransaction = cardlessTransRepo.findListTransaction(request.getAccountNo(),Pageable.unpaged());
         return null;
     }
 

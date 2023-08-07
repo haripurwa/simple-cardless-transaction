@@ -24,7 +24,6 @@ public class Customer {
     private String nik;
     private String accountNo;
     private String gender;
-    private String password;
     private boolean isActive = true;
     private LocalDateTime createdAt;
     private LocalDateTime updateAt;

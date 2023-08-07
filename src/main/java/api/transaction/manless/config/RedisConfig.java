@@ -48,8 +48,8 @@ public class RedisConfig {
     }
 
     @Bean
-    public MessageListenerAdapter messageAdapter(TransactionMessageListener orderMessageListener){
-        return new MessageListenerAdapter(orderMessageListener);
+    public MessageListenerAdapter messageAdapter(TransactionMessageListener transactionMessageListener){
+        return new MessageListenerAdapter(transactionMessageListener);
     }
 
     @Bean

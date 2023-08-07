@@ -114,7 +114,6 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setAccountNo(request.getAccountNo());
         customer.setEmail(request.getEmail());
         customer.setGender(request.getGender());
-        customer.setPassword(request.getPassword());
         customerRepo.save(customer);
         //set account customer
         AccountCustomer accountCustomer = new AccountCustomer();
