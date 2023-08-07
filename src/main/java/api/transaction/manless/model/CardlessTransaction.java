@@ -17,10 +17,13 @@ public class CardlessTransaction {
     @Id
     @Type(type = ("uuid-char"))
     private UUID id;
+    private String accountNo;
+    private String debetAmount;
+    private String location;
+    private String description;
     private LocalDateTime createdAt;
     @PrePersist
     public void setModelBeforeInsert() {
-        this.id = UUID.randomUUID();
         this.createdAt = LocalDateTime.now();
     }
 

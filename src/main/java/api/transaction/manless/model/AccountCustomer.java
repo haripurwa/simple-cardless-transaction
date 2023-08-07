@@ -24,6 +24,7 @@ public class AccountCustomer {
 
     @PrePersist
     public void setModelBeforeInsert() {
+        this.id = UUID.randomUUID();
         this.createdAt = LocalDateTime.now();
     }
 }
