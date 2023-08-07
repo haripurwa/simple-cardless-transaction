@@ -5,5 +5,6 @@ import api.transaction.manless.dto.MsResponse;
 
 public interface CardlessService {
     MsResponse create(CardlessRequest request);
+    MsResponse listTransaction(CardlessRequest request);
 
 }

@@ -21,10 +21,10 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class OrderMessageListener implements MessageListener {
+public class TransactionMessageListener implements MessageListener {
 
-    @Value("${partner.url.order}")
-    private String urlOrder;
+    @Value("${partner.url.transaction}")
+    private String transactionUrl;
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
    private final CardlessTransRepo cardlessTransRepo;
@@ -45,7 +45,7 @@ public class OrderMessageListener implements MessageListener {
             HttpEntity<?> httpEntity = new HttpEntity<>(msg, httpHeaders);
             log.info("HttpEntity to partner: {}", httpEntity.getBody());
             ResponseEntity<String> response = restTemplate.exchange(
-                    urlOrder,
+                    transactionUrl,
                     HttpMethod.POST,
                     httpEntity,
                     String.class

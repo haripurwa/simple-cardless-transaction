@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class OrderMessagePublisher {
+public class TransactionMessagePublisher {
     private final RedisTemplate<String, Object> redisTemplate;
     private final ChannelTopic topic;
 
